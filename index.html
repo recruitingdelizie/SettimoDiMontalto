@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settimo di Montalto - Report di oggi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .header p {
+            color: #6b7280;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .date-info {
+            background: #eff6ff;
+            padding: 24px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            border: 1px solid #bfdbfe;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .date-info p {
+            font-size: 20px;
+            color: #1e3a8a;
+            margin: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .date-info strong {
+            color: #1e40af;
+            font-weight: 700;
+            font-size: 22px;
+        }
+        
+        .date-info .giorno-value {
+            font-size: 26px;
+            color: #1e40af;
+            font-weight: 700;
+        }
+        
+        .date-info .data-value {
+            font-size: 24px;
+            color: #1e40af;
+            font-weight: 700;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 18px;
+            padding: 14px 18px;
+            background: #3b82f6;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .spese-section .section-title {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .fornitori-section .section-title {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .incassi-section .section-title {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        
+        label {
+            display: block;
+            font-size: 13px;
+            color: #374151;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: #ffffff;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .spese-section input:focus,
+        .spese-section select:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        
+        .fornitori-section input:focus,
+        .fornitori-section select:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        
+        .incassi-section input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .single-field {
+            margin-bottom: 16px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            display: none;
+            background: #10b981;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            animation: slideIn 0.3s;
+        }
+        
+        .error-message {
+            display: none;
+            background: #ef4444;
+            color: white;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Ottimizzazione iPhone e Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 24px 20px;
+                border-radius: 8px;
+            }
+            
+            .header h1 {
+                font-size: 26px;
+            }
+            
+            .date-info {
+                padding: 20px;
+                gap: 20px;
+            }
+            
+            .date-info p {
+                font-size: 18px;
+            }
+            
+            .date-info strong {
+                font-size: 20px;
+            }
+            
+            .date-info .giorno-value {
+                font-size: 24px;
+            }
+            
+            .date-info .data-value {
+                font-size: 22px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .section-title {
+                font-size: 14px;
+                padding: 12px 14px;
+                letter-spacing: 0.8px;
+            }
+            
+            label {
+                font-size: 14px;
+            }
+            
+            input, select {
+                padding: 14px 12px;
+                font-size: 16px; /* Previene zoom automatico su iPhone */
+            }
+            
+            button {
+                padding: 18px;
+                font-size: 16px;
+            }
+        }
+        
+        /* iPhone in modalità portrait */
+        @media (max-width: 430px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .date-info {
+                padding: 18px;
+            }
+            
+            input, select {
+                font-size: 16px; /* Mantiene 16px per evitare zoom */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Settimo di Montalto</h1>
+            <p style="color: #666;">Report di oggi</p>
+        </div>
+        
+        <div class="date-info">
+            <p><strong>Giorno:</strong> <span class="giorno-value" id="giorno"></span></p>
+            <p><strong>Data:</strong> <input type="date" id="datePicker" style="font-size: 18px; font-weight: 600; color: #1e40af; border: 2px solid #bfdbfe; border-radius: 6px; padding: 8px; background: #eff6ff;"></p>
+        </div>
+        
+        <form id="dataForm">
+            <!-- SPESE -->
+            <div class="section spese-section">
+                <div class="section-title">Spese</div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Spesa 1</label>
+                        <select name="spesa1" id="spesa1">
+                            <option value="">-- Seleziona --</option>
+                            <option value="Latte">Latte</option>
+                            <option value="Supermercato">Supermercato</option>
+                            <option value="Varie">Varie</option>
+                            <option value="Personale">Personale</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="spesa1Altro" id="spesa1Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoSpesa1" id="importoSpesa1" placeholder="0.00">
+                    </div>
+                </div>
+                
+                <div class="form-row" id="spesa2-row" style="display: none;">
+                    <div>
+                        <label>Spesa 2</label>
+                        <select name="spesa2" id="spesa2">
+                            <option value="">-- Seleziona --</option>
+                            <option value="Latte">Latte</option>
+                            <option value="Supermercato">Supermercato</option>
+                            <option value="Varie">Varie</option>
+                            <option value="Personale">Personale</option>
+                            <option value="Altro">Altro</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="spesa2Altro" id="spesa2Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoSpesa2" id="importoSpesa2" placeholder="0.00">
+                    </div>
+                </div>
+                
+                <div class="form-row" id="spesa3-row" style="display: none;">
+                    <div>
+                        <label>Spesa 3</label>
+                        <select name="spesa3" id="spesa3">
+                            <option value="">-- Seleziona --</option>
+                            <option value="Latte">Latte</option>
+                            <option value="Supermercato">Supermercato</option>
+                            <option value="Varie">Varie</option>
+                            <option value="Personale">Personale</option>
+                            <option value="Altro">Altro</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="spesa3Altro" id="spesa3Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoSpesa3" id="importoSpesa3" placeholder="0.00">
+                    </div>
+                </div>
+                
+                <div class="form-row" id="spesa4-row" style="display: none;">
+                    <div>
+                        <label>Spesa 4</label>
+                        <select name="spesa4" id="spesa4">
+                            <option value="">-- Seleziona --</option>
+                            <option value="Latte">Latte</option>
+                            <option value="Supermercato">Supermercato</option>
+                            <option value="Varie">Varie</option>
+                            <option value="Personale">Personale</option>
+                            <option value="Altro">Altro</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="spesa4Altro" id="spesa4Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoSpesa4" id="importoSpesa4" placeholder="0.00">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FORNITORI -->
+            <div class="section fornitori-section">
+                <div class="section-title">Fornitori</div>
+                
+                <div class="form-row">
+                    <div>
+                        <label>Fornitore 1</label>
+                        <select name="fornitore1" id="fornitore1">
+                            <option value="">-- Seleziona --</option>
+                            <option value="San Carlo">San Carlo</option>
+                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="Caffè">Caffè</option>
+                            <option value="Foodness">Foodness</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="fornitore1Altro" id="fornitore1Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoFornitore1" id="importoFornitore1" placeholder="0.00">
+                        <div style="margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer;">
+                                <input type="checkbox" name="bonifico1" id="bonifico1" style="width: auto; cursor: pointer;">
+                                <span>Seguirà pagamento tramite bonifico</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="fornitore2-row" style="display: none;">
+                    <div>
+                        <label>Fornitore 2</label>
+                        <select name="fornitore2" id="fornitore2">
+                            <option value="">-- Seleziona --</option>
+                            <option value="San Carlo">San Carlo</option>
+                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="Caffè">Caffè</option>
+                            <option value="Foodness">Foodness</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="fornitore2Altro" id="fornitore2Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoFornitore2" id="importoFornitore2" placeholder="0.00">
+                        <div style="margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer;">
+                                <input type="checkbox" name="bonifico2" id="bonifico2" style="width: auto; cursor: pointer;">
+                                <span>Seguirà pagamento tramite bonifico</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="fornitore3-row" style="display: none;">
+                    <div>
+                        <label>Fornitore 3</label>
+                        <select name="fornitore3" id="fornitore3">
+                            <option value="">-- Seleziona --</option>
+                            <option value="San Carlo">San Carlo</option>
+                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="Caffè">Caffè</option>
+                            <option value="Foodness">Foodness</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                        <input type="text" name="fornitore3Altro" id="fornitore3Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
+                    </div>
+                    <div>
+                        <label>Importo €</label>
+                        <input type="number" step="0.01" name="importoFornitore3" id="importoFornitore3" placeholder="0.00">
+                        <div style="margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer;">
+                                <input type="checkbox" name="bonifico3" id="bonifico3" style="width: auto; cursor: pointer;">
+                                <span>Seguirà pagamento tramite bonifico</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INCASSI -->
+            <div class="section incassi-section">
+                <div class="section-title">Incassi</div>
+                
+                <div class="single-field">
+                    <label>POS € *</label>
+                    <input type="number" step="0.01" name="pos" placeholder="0.00" required>
+                </div>
+                
+                <div class="single-field">
+                    <label>Contanti € *</label>
+                    <input type="number" step="0.01" name="contanti" placeholder="0.00" required>
+                </div>
+                
+                <div class="single-field">
+                    <label>Corrispettivi € *</label>
+                    <input type="number" step="0.01" name="corrispettivi" placeholder="0.00" required>
+                </div>
+            </div>
+            
+            <button type="submit">Salva Dati</button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            Dati salvati con successo!
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Errore nel salvataggio. Riprova.
+        </div>
+    </div>
+    
+    <script>
+        // CONFIGURAZIONE - INSERISCI QUI I TUOI DATI
+        const SPREADSHEET_ID = 'TUO_SPREADSHEET_ID'; // Sostituisci con l'ID del tuo Google Sheet
+        const API_KEY = 'TUA_API_KEY'; // Sostituisci con la tua API Key
+        const SHEET_NAME = 'Corso Mazzini'; // Nome del foglio
+        
+        // Imposta data e giorno correnti
+        const oggi = new Date();
+        const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+        
+        // Formatta la data per l'input date (YYYY-MM-DD)
+        const anno = oggi.getFullYear();
+        const mese = String(oggi.getMonth() + 1).padStart(2, '0');
+        const giornoNum = String(oggi.getDate()).padStart(2, '0');
+        const dataInputFormat = `${anno}-${mese}-${giornoNum}`;
+        
+        // Imposta il date picker
+        const datePicker = document.getElementById('datePicker');
+        datePicker.value = dataInputFormat;
+        
+        // Funzione per aggiornare il giorno della settimana
+        function aggiornaGiorno() {
+            const dataSelezionata = new Date(datePicker.value + 'T00:00:00');
+            const giorno = giorni[dataSelezionata.getDay()];
+            document.getElementById('giorno').textContent = giorno;
+        }
+        
+        // Aggiorna il giorno iniziale
+        aggiornaGiorno();
+        
+        // Aggiorna il giorno quando cambia la data
+        datePicker.addEventListener('change', aggiornaGiorno);
+        
+        console.log('Data iniziale:', datePicker.value);
+        
+        // Logica per mostrare campi progressivamente
+        // SPESE
+        const spesa1Select = document.getElementById('spesa1');
+        const spesa1Input = document.getElementById('importoSpesa1');
+        const spesa1Altro = document.getElementById('spesa1Altro');
+        const spesa2Row = document.getElementById('spesa2-row');
+        const spesa2Select = document.getElementById('spesa2');
+        const spesa2Input = document.getElementById('importoSpesa2');
+        const spesa2Altro = document.getElementById('spesa2Altro');
+        const spesa3Row = document.getElementById('spesa3-row');
+        const spesa3Select = document.getElementById('spesa3');
+        const spesa3Input = document.getElementById('importoSpesa3');
+        const spesa3Altro = document.getElementById('spesa3Altro');
+        const spesa4Row = document.getElementById('spesa4-row');
+        const spesa4Select = document.getElementById('spesa4');
+        const spesa4Altro = document.getElementById('spesa4Altro');
+        
+        // Mostra/nascondi campo "Altro"
+        spesa1Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                spesa1Altro.style.display = 'block';
+            } else {
+                spesa1Altro.style.display = 'none';
+            }
+            checkSpesa1();
+        });
+        
+        spesa2Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                spesa2Altro.style.display = 'block';
+            } else {
+                spesa2Altro.style.display = 'none';
+            }
+            checkSpesa2();
+        });
+        
+        spesa3Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                spesa3Altro.style.display = 'block';
+            } else {
+                spesa3Altro.style.display = 'none';
+            }
+            checkSpesa3();
+        });
+        
+        spesa4Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                spesa4Altro.style.display = 'block';
+            } else {
+                spesa4Altro.style.display = 'none';
+            }
+        });
+        
+        function checkSpesa1() {
+            // Mostra Spesa 2 solo se ENTRAMBI i campi di Spesa 1 sono compilati
+            if (spesa1Select.value && spesa1Input.value && parseFloat(spesa1Input.value) > 0) {
+                spesa2Row.style.display = 'grid';
+            } else {
+                spesa2Row.style.display = 'none';
+                spesa3Row.style.display = 'none';
+                spesa4Row.style.display = 'none';
+            }
+        }
+        
+        function checkSpesa2() {
+            // Mostra Spesa 3 solo se ENTRAMBI i campi di Spesa 2 sono compilati
+            if (spesa2Select.value && spesa2Input.value && parseFloat(spesa2Input.value) > 0) {
+                spesa3Row.style.display = 'grid';
+            } else {
+                spesa3Row.style.display = 'none';
+                spesa4Row.style.display = 'none';
+            }
+        }
+        
+        function checkSpesa3() {
+            // Mostra Spesa 4 solo se ENTRAMBI i campi di Spesa 3 sono compilati
+            if (spesa3Select.value && spesa3Input.value && parseFloat(spesa3Input.value) > 0) {
+                spesa4Row.style.display = 'grid';
+            } else {
+                spesa4Row.style.display = 'none';
+            }
+        }
+        
+        spesa1Select.addEventListener('change', checkSpesa1);
+        spesa1Input.addEventListener('input', checkSpesa1);
+        spesa2Select.addEventListener('change', checkSpesa2);
+        spesa2Input.addEventListener('input', checkSpesa2);
+        spesa3Select.addEventListener('change', checkSpesa3);
+        spesa3Input.addEventListener('input', checkSpesa3);
+        
+        // FORNITORI
+        const fornitore1Select = document.getElementById('fornitore1');
+        const fornitore1Input = document.getElementById('importoFornitore1');
+        const fornitore1Altro = document.getElementById('fornitore1Altro');
+        const fornitore2Row = document.getElementById('fornitore2-row');
+        const fornitore2Select = document.getElementById('fornitore2');
+        const fornitore2Input = document.getElementById('importoFornitore2');
+        const fornitore2Altro = document.getElementById('fornitore2Altro');
+        const fornitore3Row = document.getElementById('fornitore3-row');
+        const fornitore3Select = document.getElementById('fornitore3');
+        const fornitore3Altro = document.getElementById('fornitore3Altro');
+        
+        // Mostra/nascondi campo "Altro" per fornitori
+        fornitore1Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                fornitore1Altro.style.display = 'block';
+            } else {
+                fornitore1Altro.style.display = 'none';
+            }
+            checkFornitore1();
+        });
+        
+        fornitore2Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                fornitore2Altro.style.display = 'block';
+            } else {
+                fornitore2Altro.style.display = 'none';
+            }
+            checkFornitore2();
+        });
+        
+        fornitore3Select.addEventListener('change', function() {
+            if (this.value === 'Altro') {
+                fornitore3Altro.style.display = 'block';
+            } else {
+                fornitore3Altro.style.display = 'none';
+            }
+        });
+        
+        function checkFornitore1() {
+            // Mostra Fornitore 2 solo se ENTRAMBI i campi di Fornitore 1 sono compilati
+            if (fornitore1Select.value && fornitore1Input.value && parseFloat(fornitore1Input.value) > 0) {
+                fornitore2Row.style.display = 'grid';
+            } else {
+                fornitore2Row.style.display = 'none';
+                fornitore3Row.style.display = 'none';
+            }
+        }
+        
+        function checkFornitore2() {
+            // Mostra Fornitore 3 solo se ENTRAMBI i campi di Fornitore 2 sono compilati
+            if (fornitore2Select.value && fornitore2Input.value && parseFloat(fornitore2Input.value) > 0) {
+                fornitore3Row.style.display = 'grid';
+            } else {
+                fornitore3Row.style.display = 'none';
+            }
+        }
+        
+        fornitore1Select.addEventListener('change', checkFornitore1);
+        fornitore1Input.addEventListener('input', checkFornitore1);
+        fornitore2Select.addEventListener('change', checkFornitore2);
+        fornitore2Input.addEventListener('input', checkFornitore2);
+        
+        // Gestione form
+        document.getElementById('dataForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Ottieni la data selezionata e convertila in formato gg/mm/aaaa
+            const dataSelezionata = new Date(datePicker.value + 'T00:00:00');
+            const giornoFormattato = String(dataSelezionata.getDate()).padStart(2, '0');
+            const meseFormattato = String(dataSelezionata.getMonth() + 1).padStart(2, '0');
+            const annoFormattato = dataSelezionata.getFullYear();
+            const data = `${giornoFormattato}/${meseFormattato}/${annoFormattato}`;
+            const giorno = giorni[dataSelezionata.getDay()];
+            
+            console.log('Data da salvare:', data, 'Giorno:', giorno);
+            
+            // Validazione campo "Altro" solo se la categoria è stata selezionata
+            if (spesa1Select.value === 'Altro' && !spesa1Altro.value.trim()) {
+                alert('⚠️ Devi specificare il tipo di spesa per "Altro"');
+                spesa1Altro.focus();
+                return;
+            }
+            
+            if (spesa2Select.value === 'Altro' && spesa2Row.style.display !== 'none' && !spesa2Altro.value.trim()) {
+                alert('⚠️ Devi specificare il tipo di spesa per "Altro"');
+                spesa2Altro.focus();
+                return;
+            }
+            
+            if (spesa3Select.value === 'Altro' && spesa3Row.style.display !== 'none' && !spesa3Altro.value.trim()) {
+                alert('⚠️ Devi specificare il tipo di spesa per "Altro"');
+                spesa3Altro.focus();
+                return;
+            }
+            
+            if (spesa4Select.value === 'Altro' && spesa4Row.style.display !== 'none' && !spesa4Altro.value.trim()) {
+                alert('⚠️ Devi specificare il tipo di spesa per "Altro"');
+                spesa4Altro.focus();
+                return;
+            }
+            
+            // Validazione Altro per fornitori (solo se il fornitore è stato selezionato)
+            if (fornitore1Select.value === 'Altro' && !fornitore1Altro.value.trim()) {
+                alert('⚠️ Devi specificare il fornitore per "Altro"');
+                fornitore1Altro.focus();
+                return;
+            }
+            
+            if (fornitore2Select.value === 'Altro' && fornitore2Row.style.display !== 'none' && !fornitore2Altro.value.trim()) {
+                alert('⚠️ Devi specificare il fornitore per "Altro"');
+                fornitore2Altro.focus();
+                return;
+            }
+            
+            if (fornitore3Select.value === 'Altro' && fornitore3Row.style.display !== 'none' && !fornitore3Altro.value.trim()) {
+                alert('⚠️ Devi specificare il fornitore per "Altro"');
+                fornitore3Altro.focus();
+                return;
+            }
+            
+            const formData = new FormData(e.target);
+            
+            // Gestione campo "Altro"
+            const spesa1Value = formData.get('spesa1') === 'Altro' ? formData.get('spesa1Altro') : formData.get('spesa1');
+            const spesa2Value = formData.get('spesa2') === 'Altro' ? formData.get('spesa2Altro') : formData.get('spesa2');
+            const spesa3Value = formData.get('spesa3') === 'Altro' ? formData.get('spesa3Altro') : formData.get('spesa3');
+            const spesa4Value = formData.get('spesa4') === 'Altro' ? formData.get('spesa4Altro') : formData.get('spesa4');
+            
+            const fornitore1Value = formData.get('fornitore1') === 'Altro' ? formData.get('fornitore1Altro') : formData.get('fornitore1');
+            const fornitore2Value = formData.get('fornitore2') === 'Altro' ? formData.get('fornitore2Altro') : formData.get('fornitore2');
+            const fornitore3Value = formData.get('fornitore3') === 'Altro' ? formData.get('fornitore3Altro') : formData.get('fornitore3');
+            
+            const values = [
+                data,
+                giorno,
+                spesa1Value || '',
+                parseFloat(formData.get('importoSpesa1')) || 0,
+                spesa2Value || '',
+                parseFloat(formData.get('importoSpesa2')) || 0,
+                spesa3Value || '',
+                parseFloat(formData.get('importoSpesa3')) || 0,
+                spesa4Value || '',
+                parseFloat(formData.get('importoSpesa4')) || 0,
+                fornitore1Value || '',
+                parseFloat(formData.get('importoFornitore1')) || 0,
+                fornitore2Value || '',
+                parseFloat(formData.get('importoFornitore2')) || 0,
+                fornitore3Value || '',
+                parseFloat(formData.get('importoFornitore3')) || 0,
+                parseFloat(formData.get('pos')) || 0,
+                parseFloat(formData.get('contanti')) || 0,
+                parseFloat(formData.get('corrispettivi')) || 0
+            ];
+            
+            try {
+                // Invia i dati alla webapp di Google Apps Script usando iframe nascosto
+                const webappURL = 'https://script.google.com/macros/s/AKfycbxA0NE6cjeXBtpNdyu9UcOinJZbShhiyfk9wOmL70nkutriONbfVQay3mUlqfxCp1VdwA/exec';
+                
+                // Crea iframe nascosto se non esiste
+                let iframe = document.getElementById('hiddenFrame');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.id = 'hiddenFrame';
+                    iframe.name = 'hiddenFrame';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                }
+                
+                // Crea form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = webappURL;
+                form.target = 'hiddenFrame';
+                
+                // Aggiungi i dati come campi nascosti
+                const dataToSend = {
+                    sede: 'Settimo di Montalto',
+                    data: data,
+                    giorno: giorno,
+                    spesa1: spesa1Value,
+                    importoSpesa1: parseFloat(formData.get('importoSpesa1')) || 0,
+                    spesa2: spesa2Value,
+                    importoSpesa2: parseFloat(formData.get('importoSpesa2')) || 0,
+                    spesa3: spesa3Value,
+                    importoSpesa3: parseFloat(formData.get('importoSpesa3')) || 0,
+                    spesa4: spesa4Value,
+                    importoSpesa4: parseFloat(formData.get('importoSpesa4')) || 0,
+                    fornitore1: fornitore1Value,
+                    importoFornitore1: parseFloat(formData.get('importoFornitore1')) || 0,
+                    bonifico1: formData.get('bonifico1') === 'on' ? 'SI' : 'NO',
+                    fornitore2: fornitore2Value,
+                    importoFornitore2: parseFloat(formData.get('importoFornitore2')) || 0,
+                    bonifico2: formData.get('bonifico2') === 'on' ? 'SI' : 'NO',
+                    fornitore3: fornitore3Value,
+                    importoFornitore3: parseFloat(formData.get('importoFornitore3')) || 0,
+                    bonifico3: formData.get('bonifico3') === 'on' ? 'SI' : 'NO',
+                    pos: parseFloat(formData.get('pos')) || 0,
+                    contanti: parseFloat(formData.get('contanti')) || 0,
+                    corrispettivi: parseFloat(formData.get('corrispettivi')) || 0
+                };
+                
+                // Crea campo nascosto con JSON
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'data';
+                input.value = JSON.stringify(dataToSend);
+                form.appendChild(input);
+                
+                // Aggiungi il form al body e invialo
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
+                
+                document.getElementById('successMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                    e.target.reset();
+                    // Resetta anche i campi nascosti
+                    spesa2Row.style.display = 'none';
+                    spesa3Row.style.display = 'none';
+                    spesa4Row.style.display = 'none';
+                    fornitore2Row.style.display = 'none';
+                    fornitore3Row.style.display = 'none';
+                    spesa1Altro.style.display = 'none';
+                    spesa2Altro.style.display = 'none';
+                    spesa3Altro.style.display = 'none';
+                    spesa4Altro.style.display = 'none';
+                    fornitore1Altro.style.display = 'none';
+                    fornitore2Altro.style.display = 'none';
+                    fornitore3Altro.style.display = 'none';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Errore:', error);
+                document.getElementById('errorMessage').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

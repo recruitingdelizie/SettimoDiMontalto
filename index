@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corso Mazzini - Inserimento Dati</title>
+    <title>Settimo di Montalto - Inserimento Dati</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -321,7 +321,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Corso Mazzini</h1>
+            <h1>Settimo di Montalto</h1>
             <p style="color: #666;">Report di oggi</p>
         </div>
         
@@ -340,10 +340,10 @@
                         <label>Spesa 1</label>
                         <select name="spesa1" id="spesa1">
                             <option value="">-- Seleziona --</option>
-                            <option value="Coop">Coop</option>
+                            <option value="Cicero">Coop</option>
                             <option value="Proprietà">Proprietà</option>
-                            <option value="Despar">Despar</option>
-                            <option value="Macelleria">Macelleria</option>
+                            <option value="Mimmo">Despar</option>
+                            <option value="Eurospin">Macelleria</option>
                             <option value="Personale Extra">Personale Extra</option>
                             <option value="Altro">Altro</option>
                         </select>
@@ -360,11 +360,11 @@
                         <label>Spesa 2</label>
                         <select name="spesa2" id="spesa2">
                             <option value="">-- Seleziona --</option>
-                            <option value="Coop">Coop</option>
+                            <option value="Cicero">Coop</option>
                             <option value="Proprietà">Proprietà</option>
-                            <option value="Despar">Despar</option>
-                            <option value="Macelleria">Macelleria</option>
-                            <option value="Personale Extra">Personale Extra</option>
+                            <option value="Eurospin">Despar</option>
+                            <option value="Conad">Macelleria</option>
+                            <option value="Mimmo">Personale Extra</option>
                             <option value="Altro">Altro</option>
                         </select>
                         <input type="text" name="spesa2Altro" id="spesa2Altro" placeholder="Specifica..." style="display: none; margin-top: 8px; padding: 10px 14px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px;">
@@ -380,10 +380,10 @@
                         <label>Spesa 3</label>
                         <select name="spesa3" id="spesa3">
                             <option value="">-- Seleziona --</option>
-                            <option value="Coop">Coop</option>
+                            <option value="Mimmo">Coop</option>
                             <option value="Proprietà">Proprietà</option>
-                            <option value="Despar">Despar</option>
-                            <option value="Macelleria">Macelleria</option>
+                            <option value="Conad">Despar</option>
+                            <option value="Eurospin">Macelleria</option>
                             <option value="Personale Extra">Personale Extra</option>
                             <option value="Altro">Altro</option>
                         </select>
@@ -400,10 +400,10 @@
                         <label>Spesa 4</label>
                         <select name="spesa4" id="spesa4">
                             <option value="">-- Seleziona --</option>
-                            <option value="Coop">Coop</option>
-                            <option value="Proprietà">Proprietà</option>
-                            <option value="Despar">Despar</option>
-                            <option value="Macelleria">Macelleria</option>
+                            <option value="Eurospin">Coop</option>
+                            <option value="Cicero">Proprietà</option>
+                            <option value="Conad">Despar</option>
+                            <option value="Mimmo">Macelleria</option>
                             <option value="Personale Extra">Personale Extra</option>
                             <option value="Altro">Altro</option>
                         </select>
@@ -425,8 +425,8 @@
                         <label>Fornitore 1</label>
                         <select name="fornitore1" id="fornitore1">
                             <option value="">-- Seleziona --</option>
-                            <option value="San Carlo">San Carlo</option>
-                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="Dipar">San Carlo</option>
+                            <option value="Granarolo">Dolciaria Lametina</option>
                             <option value="Caffè">Caffè</option>
                             <option value="Foodness">Foodness</option>
                             <option value="Altro">Altro</option>
@@ -450,8 +450,9 @@
                         <label>Fornitore 2</label>
                         <select name="fornitore2" id="fornitore2">
                             <option value="">-- Seleziona --</option>
-                            <option value="San Carlo">San Carlo</option>
-                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="">-- Seleziona --</option>
+                            <option value="Dipar">San Carlo</option>
+                            <option value="Granarolo">Dolciaria Lametina</option>
                             <option value="Caffè">Caffè</option>
                             <option value="Foodness">Foodness</option>
                             <option value="Altro">Altro</option>
@@ -475,8 +476,9 @@
                         <label>Fornitore 3</label>
                         <select name="fornitore3" id="fornitore3">
                             <option value="">-- Seleziona --</option>
-                            <option value="San Carlo">San Carlo</option>
-                            <option value="Dolciaria Lametina">Dolciaria Lametina</option>
+                            <option value="">-- Seleziona --</option>
+                            <option value="Dipar">San Carlo</option>
+                            <option value="Granarolo">Dolciaria Lametina</option>
                             <option value="Caffè">Caffè</option>
                             <option value="Foodness">Foodness</option>
                             <option value="Altro">Altro</option>
@@ -810,7 +812,7 @@
             
             try {
                 // Invia i dati alla webapp di Google Apps Script usando iframe nascosto
-                const webappURL = 'https://script.google.com/macros/s/AKfycbyW8GkAWL7mqvZS8c4g_rOgJ3x0Y5pzmaAOOxj6w9w_b4M-W3suSrJItNn_a-L0gL4E5A/exec';
+                const webappURL = 'https://script.google.com/macros/s/AKfycbxA0NE6cjeXBtpNdyu9UcOinJZbShhiyfk9wOmL70nkutriONbfVQay3mUlqfxCp1VdwA/exec';
                 
                 // Crea iframe nascosto se non esiste
                 let iframe = document.getElementById('hiddenFrame');
